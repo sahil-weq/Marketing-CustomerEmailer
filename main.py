@@ -121,6 +121,8 @@ def lambda_handler(event, context):
             phone_number = fields.get('Phone Number')
             email_template_id = fields.get('Template Selected', ['No Template'])[0]
 
+            print(f"=======START for Customer {first_name}=======")
+            print(f"email_template_id : {email_template_id}")
             if email_template_id:
                 email_body = get_airtable_template(email_template_id)
                 if email_body:
@@ -131,4 +133,6 @@ def lambda_handler(event, context):
             whatsapp_campaign_name = fields.get('WhatsApp Template Selected', ['No Template'])[0]
             if whatsapp_campaign_name and fields.get('Should Send Whatsapp Message'):
                 send_whatsapp_message(whatsapp_campaign_name, first_name, phone_number)
+
+            print(f"=======END for Customer {first_name}=======")
     return {"statusCode": 200, "body": "Data processed successfully."}
